@@ -33,6 +33,7 @@ public interface CustomerService {
 
     /**
      * Ham delete InActive Customer.
+     * Chi cho phep delete customer voi trang thai la INACTIVE
      * @param id : Id cua khach hang can delete.
      * @throws : InvalidCustomerStatusException
      */
@@ -56,7 +57,6 @@ public interface CustomerService {
      * @return : danh sach  limit customer trong he thong order by name giam dan (theo thu tu abc). Return emptyList neu khong co doi tuong nao
      * */
     List<Customer> findAllCustomerByNameLikeOrderByNameAsc(String custName, String limit);
-
 
     /**
      * Ham thu hien tim kiem tat ca danh sach customer trong he thong. Tong hop theo do tuoi cua khach hang
