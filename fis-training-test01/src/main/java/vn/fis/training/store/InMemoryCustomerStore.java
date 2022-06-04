@@ -30,4 +30,11 @@ public final class InMemoryCustomerStore {
         //TODO: Implement method  dac ta
         return Collections.emptyList();
     }
+
+    /**
+     * @param id: Id cua customer muon delete
+     */
+    public void deleteById(String id) {
+        //TODO: Implement method  dac ta
+    }
 }
