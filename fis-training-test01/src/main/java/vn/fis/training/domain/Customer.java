@@ -2,6 +2,8 @@ package vn.fis.training.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.UUID;
 
 public class Customer {
     /** ID cua Customer la duy nhat trong toan bo he thong
@@ -32,6 +34,19 @@ public class Customer {
     * */
     private String mobile;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return id.equals(customer.id) && name.equals(customer.name) && birthDay.equals(customer.birthDay) && mobile.equals(customer.mobile) && status == customer.status && createDateTime.equals(customer.createDateTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, birthDay, mobile, status, createDateTime);
+    }
+
     /** Constraints:
      * NOT NULL
      * */
@@ -44,5 +59,74 @@ public class Customer {
 
     private LocalDateTime createDateTime;
 
+    public Customer(String id, String name, LocalDate birthDay, String mobile, CustomerStatus status, LocalDateTime createDateTime) {
+        String uuid = UUID.randomUUID().toString();
+        this.id = uuid;
+        this.name = name;
+        this.birthDay = birthDay;
+        this.mobile = mobile;
+        this.status = status;
+        this.createDateTime = createDateTime;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public CustomerStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CustomerStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", birthDay=" + birthDay +
+                ", mobile='" + mobile + '\'' +
+                ", status=" + status +
+                ", createDateTime=" + createDateTime +
+                '}';
+    }
     // TODO: Implement Getters, Setters, Constructors, Equals
 }

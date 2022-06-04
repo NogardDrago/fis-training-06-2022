@@ -6,6 +6,10 @@ public abstract class ApplicationException extends RuntimeException{
         super(message);
     }
 
+    public ApplicationException() {
+
+    }
+
     /**
      * @return: Ma loi duoc khai bao trong @vn.fis.training.service.AppConstant
      */

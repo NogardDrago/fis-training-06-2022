@@ -1,11 +1,11 @@
 package vn.fis.training.store;
 
 import vn.fis.training.domain.Customer;
+import vn.fis.training.exception.CustomerNotFoundException;
+import vn.fis.training.exception.DuplicateCustomerException;
+import vn.fis.training.service.SimpleCustomerService;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class InMemoryCustomerStore {
     /**
@@ -18,9 +18,21 @@ public final class InMemoryCustomerStore {
      * @return Customer: Doi tuong customer sau khi da duoc luu thanh cong vao he thong
      * @throws vn.fis.training.exception.ApplicationException tuong ung.
      */
-    public Customer insertOrUpdate(Customer customer) {
-        //TODO: Implement theo dac ta
-        return  null;
+    public Customer insertOrUpdate(Customer customer) throws DuplicateCustomerException {
+        try{
+            if (!mapCustomer.containsKey(customer.getId())){
+                SimpleCustomerService temp = new SimpleCustomerService();
+                customer = temp.createCustomer(customer);
+                mapCustomer.put(customer.getId(), customer);
+                //TODO: Implement theo dac ta
+                return  customer;
+            }
+        }
+        catch (DuplicateCustomerException e){
+            e.getErrorCode();
+        }
+        //mapCustomer.put(customer.getId(),customer);
+        return null;
     }
 
     /**
@@ -28,13 +40,23 @@ public final class InMemoryCustomerStore {
      */
     public List<Customer> findAll() {
         //TODO: Implement method  dac ta
-        return Collections.emptyList();
+        List<Customer> list = new ArrayList<Customer>(mapCustomer.values());
+        return list;
     }
 
     /**
      * @param id: Id cua customer muon delete
      */
-    public void deleteById(String id) {
+    public void deleteById(String id) throws CustomerNotFoundException {
+        try{
+            if (mapCustomer.containsKey(id)){
+                        mapCustomer.remove(id);
+                }
+            }
+        catch (CustomerNotFoundException e){
+            e.getErrorCode();
+            }
+        }
         //TODO: Implement method  dac ta
     }
-}
+
